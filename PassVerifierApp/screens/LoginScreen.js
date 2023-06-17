@@ -2,10 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, TextInput, Pressable } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
-export default function LoginScreenkl87() {
+export default function LoginScreen() {
 
   const [userName,setUserName] = useState('')
   const [passWord,setPassWord] = useState('')
+
+  const Login = () =>
+  {
+    console.log("Hello")
+  }
+  
   return (
     <View style={styles.container}>
       <View style={styles.textBoxContainer}>
@@ -20,12 +26,12 @@ export default function LoginScreenkl87() {
           <TextInput
           style = {styles.passWordTextBox}
           value= {passWord}
-          onChangeText = {(passWord) => setUserName(passWord)}
+          onChangeText = {(passWord) => setPassWord(passWord)}
           placeholder = {'Password'}/>
         </View>
         <View style={styles.loginButtonContainer}>
-          <Pressable style={styles.loginButton}>
-            <Text style={styles.loginButtonText}> Login </Text>
+          <Pressable style={styles.loginButton} onPress={Login}>
+            <Text style={styles.loginButtonText}></Text>
           </Pressable>
         </View>
       </View>
