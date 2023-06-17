@@ -2,32 +2,50 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, TextInput, Pressable, TouchableHighlight } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
-
+import axios from 'axios';
 export default function App() {
+
+  const URL = "http://10.0.2.2:8000/api/"
 
   const [userName,setUserName] = useState('')
   const [passWord,setPassWord] = useState('')
+
+  const Login = async () =>
+  {
+    axios.post(
+      URL+'login/',
+      {
+        username : userName,
+        password : passWord,
+        'csrfmiddlewaretoken' : "{{ csrf_token }}",
+      }
+    ).then(
+      (res) => console.log(res)
+    ).catch((err) => console.log(err))
+  }
   return (
     <View style={styles.container}>
       <View style={styles.textBoxContainer}>
         <View style={ styles.userNameTextBoxContainer}>
           <TextInput
-          style = {styles.userNameTextBox}
+          style = {styles.TextBox}
           value= {userName}
           onChangeText = {(userName) => setUserName(userName)}
           placeholder = {'Username'}/>
         </View>
         <View style={ styles.passWordTextBoxContainer}>
           <TextInput
-          style = {styles.passWordTextBox}
+          textContentType='password'
+          secureTextEntry={true}
+          style = {styles.TextBox}
           value= {passWord}
           onChangeText = {(passWord) => setPassWord(passWord)}
           placeholder = {'Password'}/>
         </View>
         <View style={styles.loginButtonContainer} >
-            <TouchableHighlight style={styles.loginButton} underlayColor='white' onPress={() => console.log("hello")}>
-              <Text style={styles.loginButtonText}> LogIn </Text>
+            <TouchableHighlight style={styles.loginButton} underlayColor='#fabf61' 
+            onPress={Login}>
+              <Text style={styles.loginButtonText}> Log In </Text>
             </TouchableHighlight>
         </View>
       </View>   
@@ -43,6 +61,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#273A9B',
   },
+  TextBox: {
+    color: 'grey',
+    fontSize: 20,
+    backgroundColor: 'white',
+    width: 400,
+    height: 60,
+    borderRadius: 4,
+    paddingLeft: 20,
+
+  },
   textBoxContainer : {
     display: 'flex',
     flexDirection: 'column',
@@ -51,26 +79,8 @@ const styles = StyleSheet.create({
   userNameTextBoxContainer: {
     alignItems: 'center',
   },
-  userNameTextBox: {
-    color: 'grey',
-    fontSize: 20,
-    backgroundColor: 'white',
-    width: 400,
-    height: 60,
-    borderRadius: 4,
-    paddingLeft: 20,
-  },
   passWordTextBoxContainer: {
     alignItems: 'center',
-  },
-  passWordTextBox: {
-    color: 'grey',
-    fontSize: 20,
-    backgroundColor: 'white',
-    width: 400,
-    height: 60,
-    borderRadius: 4,
-    paddingLeft: 20,
   },
   loginButtonContainer: {
     alignItems: 'center',
