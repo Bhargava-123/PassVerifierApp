@@ -5,23 +5,26 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
 export default function App() {
 
+  // const URL = "http://127.0.0.1:8000/api/"
   const URL = "http://10.0.2.2:8000/api/"
 
   const [userName,setUserName] = useState('')
   const [passWord,setPassWord] = useState('')
 
-  const Login = async () =>
+  const Login = () =>
   {
-    axios.post(
-      URL+'login/',
-      {
-        username : userName,
-        password : passWord,
-        'csrfmiddlewaretoken' : "{{ csrf_token }}",
-      }
-    ).then(
-      (res) => console.log(res)
-    ).catch((err) => console.log(err))
+    // return fetch(URL+`login?username=${userName}&password=${passWord}`)
+    // .then((response) =>  response.json())
+    // .then((data) =>  {
+    //   console.log(data,"data");
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    // })
+
+    axios.get(URL+`login?username=${userName}&password=${passWord}`)
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err))
   }
   return (
     <View style={styles.container}>
