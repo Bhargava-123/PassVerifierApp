@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-4@@b0crjv(k(=8r)i3_kwbuhw3jo*a&uez11@k8ynh@a(x2n(p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.0.2.2']
+ALLOWED_HOSTS = ['10.0.2.2','127.0.0.1']
 
 
 # Application definition
@@ -47,18 +47,13 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = False
-
-CORS_ORIGIN_WHITELIST = (
-       'exp://192.168.1.3:19000','http://10.0.2.2:8000'
-)
-
+CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'PassVerifierApi.urls'
 
 TEMPLATES = [
